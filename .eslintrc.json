@@ -8,6 +8,7 @@
     "@typescript-eslint/indent": "off",
     "space-before-function-": "off",
     "space-before-function-paren": "off",
-    "eol-last": "off"
+    "eol-last": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off"
   }
 }
