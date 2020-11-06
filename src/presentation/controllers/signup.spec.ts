@@ -1,10 +1,15 @@
 import { HttpRequest, HttpResponse } from '../protocols/http-request'
 import { SignUpController } from './signup'
 import { MissingParamError } from '../error/missing-param-error'
+import { Controller } from '../protocols/controller'
+
+const makeSut = (): Controller => {
+    return new SignUpController()
+}
 
 describe('SignUp Controller', () => {
     test('Should return 400 if no name is provided', () => {
-        const sut = new SignUpController()
+        const sut = makeSut()
         const httpRequest: HttpRequest = {
             body: {
                 email: 'any_email@mail.com',
