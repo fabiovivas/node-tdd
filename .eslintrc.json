@@ -1,9 +1,13 @@
 {
   "extends": "standard-with-typescript",
   "parserOptions": {
-    "project": "../arroba/arroba_server/tsconfig.json"
+    "project": "./tsconfig.json"
   },
   "rules": {
-    "@typescript-eslint/camelcase": "off"
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/indent": "off",
+    "space-before-function-": "off",
+    "space-before-function-paren": "off",
+    "eol-last": "off"
   }
 }
