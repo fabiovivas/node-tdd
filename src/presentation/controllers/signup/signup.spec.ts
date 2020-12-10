@@ -3,7 +3,7 @@ import { AddAccount, AddAccountModel } from '../../../domain/usecases/add-accoun
 import { MissingParamError } from '../../error/missing-param-error'
 import { ServerError } from '../../error/server-error'
 import { badResquest, ok, serverError } from '../../helpers/http/http-helper'
-import { Validation } from '../../helpers/validators/validation'
+import { Validation } from '../../protocols/validation'
 import { HttpRequest, HttpResponse } from '../../protocols/http-request'
 import { SignUpController } from './signup'
 
