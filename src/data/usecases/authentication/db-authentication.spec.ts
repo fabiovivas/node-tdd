@@ -1,6 +1,6 @@
 import { AccountModel } from '../../../domain/model/account-model'
 import { AuthenticationModel } from '../../../domain/usecases/authentication'
-import { LoadAccountByEmailRepository } from '../../protocols/load-account-email-by-repository'
+import { LoadAccountByEmailRepository } from '../../protocols/db/load-account-email-by-repository'
 import { DbAuthentication } from './db-authentication'
 
 const makeFakeAccount = (): AccountModel => ({
