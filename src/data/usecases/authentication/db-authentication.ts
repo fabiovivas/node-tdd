@@ -33,7 +33,7 @@ export class DbAuthentication implements Authentication {
             accessToken = await this.tokenGenerator.encrypt(account.id)
         }
         if (accessToken) {
-            await this.updateAccessTokenRepository.update(account.id, accessToken)
+            await this.updateAccessTokenRepository.updateAccessToken(account.id, accessToken)
         }
 
         return accessToken
