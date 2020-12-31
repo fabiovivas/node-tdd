@@ -5,13 +5,10 @@ import { Controller } from '../../protocols/controller'
 import { HttpRequest, HttpResponse } from '../../protocols/http-request'
 
 export class SignUpController implements Controller {
-    private readonly addAccount: AddAccount
-    private readonly validation: Validation
-
-    constructor(addAccount: AddAccount, validation: Validation) {
-        this.addAccount = addAccount
-        this.validation = validation
-    }
+    constructor(
+        private readonly addAccount: AddAccount,
+        private readonly validation: Validation
+    ) { }
 
     async handle(httpeRequest: HttpRequest): Promise<HttpResponse> {
         try {

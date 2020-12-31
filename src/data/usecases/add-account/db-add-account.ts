@@ -4,12 +4,10 @@ import { AddAccountRepository } from '../../protocols/db/account/add-account-rep
 import { Hasher } from '../../protocols/cryptography/hasher'
 
 export class DbAddAccount implements AddAccount {
-    private readonly Hasher: Hasher
-    private readonly addAccountRepository: AddAccountRepository
-    constructor(Hasher: Hasher, addAccountRepository: AddAccountRepository) {
-        this.Hasher = Hasher
-        this.addAccountRepository = addAccountRepository
-    }
+    constructor(
+        private readonly Hasher: Hasher,
+        private readonly addAccountRepository: AddAccountRepository
+    ) { }
 
     async add(account: AddAccountModel): Promise<AccountModel> {
         const hashedPassword = await this.Hasher.hash(account.password)
