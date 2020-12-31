@@ -5,7 +5,7 @@ import { ServerError } from '../../error/server-error'
 import { badResquest, ok, serverError } from '../../helpers/http/http-helper'
 import { Validation } from '../../protocols/validation'
 import { HttpRequest, HttpResponse } from '../../protocols/http-request'
-import { SignUpController } from './signup'
+import { SignUpController } from './signup-controller'
 
 interface SutTypes {
     sut: SignUpController

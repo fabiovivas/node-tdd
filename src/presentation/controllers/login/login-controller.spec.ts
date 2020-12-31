@@ -4,7 +4,7 @@ import { ServerError } from '../../error/server-error'
 import { badResquest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
 import { Validation } from '../../protocols/validation'
 import { HttpRequest } from '../../protocols/http-request'
-import { LoginController } from './login'
+import { LoginController } from './login-controller'
 
 interface SutTypes {
     sut: LoginController
