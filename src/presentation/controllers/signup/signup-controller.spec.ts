@@ -6,11 +6,13 @@ import { badResquest, ok, serverError } from '../../helpers/http/http-helper'
 import { Validation } from '../../protocols/validation'
 import { HttpRequest, HttpResponse } from '../../protocols/http-request'
 import { SignUpController } from './signup-controller'
+import { Authentication, AuthenticationModel } from '../../../domain/usecases/authentication'
 
 interface SutTypes {
     sut: SignUpController
     addAccountStub: AddAccount
     validationStub: Validation
+    authenticationStub: Authentication
 }
 
 const makeAddAccountStub = (): AddAccount => {
@@ -49,14 +51,29 @@ const makeHttpeRequest = (): HttpRequest => ({
     }
 })
 
+const makeAuthenticationStub = (): Authentication => {
+    class AuthenticationStub implements Authentication {
+        async auth(authentication: AuthenticationModel): Promise<string> {
+            return 'any_token'
+        }
+    }
+    return new AuthenticationStub()
+}
+
+const makeAuthenticationModel = (): AuthenticationModel => (
+    { email: 'any_email@mail.com', password: 'any_password' }
+)
+
 const makeSut = (): SutTypes => {
     const addAccountStub = makeAddAccountStub()
     const validationStub = makeValidationStub()
-    const sut = new SignUpController(addAccountStub, validationStub)
+    const authenticationStub = makeAuthenticationStub()
+    const sut = new SignUpController(addAccountStub, validationStub, authenticationStub)
     return {
         sut,
         addAccountStub,
-        validationStub
+        validationStub,
+        authenticationStub
     }
 }
 
@@ -89,5 +106,12 @@ describe('SignUp Controller', () => {
         jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError(''))
         const httpResponse = await sut.handle(makeHttpeRequest())
         expect(httpResponse).toEqual(badResquest(new MissingParamError('')))
+    })
+
+    test('Should call Authentication with correct values', async () => {
+        const { sut, authenticationStub } = makeSut()
+        const authSpy = jest.spyOn(authenticationStub, 'auth')
+        await sut.handle(makeHttpeRequest())
+        expect(authSpy).toHaveBeenCalledWith(makeAuthenticationModel())
     })
 })
