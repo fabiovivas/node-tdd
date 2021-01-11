@@ -1,8 +1,8 @@
-import { Authentication } from '../../../domain/usecases/authentication'
-import { badResquest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
-import { Validation } from '../../protocols/validation'
-import { Controller } from '../../protocols/controller'
-import { HttpRequest, HttpResponse } from '../../protocols/http-request'
+import { Authentication } from '../../../../domain/usecases/authentication'
+import { badResquest, ok, serverError, unauthorized } from '../../../helpers/http/http-helper'
+import { Validation } from '../../../protocols/validation'
+import { Controller } from '../../../protocols/controller'
+import { HttpRequest, HttpResponse } from '../../../protocols/http-request'
 
 export class LoginController implements Controller {
     constructor(
