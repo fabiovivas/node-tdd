@@ -41,10 +41,10 @@ describe('JwtAdapter', () => {
             expect(verifySpy).toHaveBeenCalledWith('any_token', 'secret')
         })
 
-        test('Should throws if sign throws', async () => {
+        test('Should throws if verify throws', async () => {
             const sut = new JwtAdapter('secret')
             jest.spyOn(jwt, 'verify').mockImplementationOnce(() => { throw new Error() })
-            const promise = await sut.decrypt('any_token')
+            const promise = sut.decrypt('any_token')
             await expect(promise).rejects.toThrow()
         })
 
