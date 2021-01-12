@@ -75,9 +75,8 @@ describe('DbLoadAccountByToken Usecase', () => {
     })
 
     test('Should return an account on success', async () => {
-        const { sut, loadAccountByEmailRepositoryStub } = makeSut()
-        jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByToken').mockResolvedValueOnce(null)
+        const { sut } = makeSut()
         const account = await sut.load('any_token', 'any_role')
-        expect(account).toBeNull()
+        expect(account).toEqual(makeAccountModelFake())
     })
 })
