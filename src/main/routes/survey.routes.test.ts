@@ -64,7 +64,7 @@ describe('Login Routes', () => {
                         answer: 'any_answer'
                     }]
                 })
-                .expect(403)
+                .expect(204)
         })
     })
 })
