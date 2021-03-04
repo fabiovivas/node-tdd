@@ -27,7 +27,7 @@ describe('Login Routes', () => {
     describe('POST /survey', () => {
         test('Should return 403 on add survey without accessToken', async () => {
             await request(app)
-                .post('/api/survey')
+                .post('/api/surveys')
                 .send({
                     question: 'any_question',
                     answers: [{
@@ -52,7 +52,7 @@ describe('Login Routes', () => {
             const accessToken = sign({ id }, env.jwtSecret)
             await accountCollection.updateOne({ _id: id }, { $set: { accessToken } })
             await request(app)
-                .post('/api/survey')
+                .post('/api/surveys')
                 .set('x-access-token', accessToken)
                 .send({
                     question: 'any_question',
@@ -65,6 +65,14 @@ describe('Login Routes', () => {
                     }]
                 })
                 .expect(204)
+        })
+    })
+
+    describe('GET /surveys', () => {
+        test('Should return 403 on load survey without accessToken', async () => {
+            await request(app)
+                .get('/api/surveys')
+                .expect(403)
         })
     })
 })
