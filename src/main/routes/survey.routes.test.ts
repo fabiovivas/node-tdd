@@ -8,6 +8,19 @@ import env from '../config/env'
 let surveyCollection: Collection
 let accountCollection: Collection
 
+const generateAccessToken = async (): Promise<string> => {
+    const res = await accountCollection.insertOne({
+        name: 'Fabio',
+        email: 'fviva1982@gmail.com',
+        password: 123,
+        role: 'admin'
+    })
+    const id = res.ops[0]._id
+    const accessToken = sign({ id }, env.jwtSecret)
+    await accountCollection.updateOne({ _id: id }, { $set: { accessToken } })
+    return accessToken
+}
+
 describe('Login Routes', () => {
     beforeAll(async () => {
         await MongoHelper.connect(process.env.MONGO_URL)
@@ -42,15 +55,7 @@ describe('Login Routes', () => {
         })
 
         test('Should return 204 on add survey without accessToken', async () => {
-            const res = await accountCollection.insertOne({
-                name: 'Fabio',
-                email: 'fviva1982@gmail.com',
-                password: 123,
-                role: 'admin'
-            })
-            const id = res.ops[0]._id
-            const accessToken = sign({ id }, env.jwtSecret)
-            await accountCollection.updateOne({ _id: id }, { $set: { accessToken } })
+            const accessToken = await generateAccessToken()
             await request(app)
                 .post('/api/surveys')
                 .set('x-access-token', accessToken)
@@ -73,6 +78,32 @@ describe('Login Routes', () => {
             await request(app)
                 .get('/api/surveys')
                 .expect(403)
+        })
+
+        test('Should return 200 on load survey with accessToken', async () => {
+            const accessToken = await generateAccessToken()
+            await surveyCollection.insertMany([
+                {
+                    question: 'any_question',
+                    answers: [{
+                        image: 'any_image',
+                        answer: 'any_answer'
+                    }],
+                    date: new Date()
+                },
+                {
+                    question: 'other_question',
+                    answers: [{
+                        image: 'other_image',
+                        answer: 'other_answer'
+                    }],
+                    date: new Date()
+                }
+            ])
+            await request(app)
+                .get('/api/surveys')
+                .set('x-access-token', accessToken)
+                .expect(200)
         })
     })
 })
