@@ -2,7 +2,7 @@ import { badResquest, serverError, noContent } from '../../../helpers/http/http-
 import { HttpRequest } from '../../../protocols/http-request'
 import { Validation } from '../../../protocols/validation'
 import { AddSurveyController } from './add-survey-controller'
-import { AddSurvey, AddSurveyModel } from '../../../../domain/usecases/add-survey'
+import { AddSurvey, AddSurveyModel } from '@/domain/usecases/add-survey'
 import MockDate from 'mockdate'
 
 const makeFakeRequest = (): HttpRequest => ({
