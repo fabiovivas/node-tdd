@@ -5,7 +5,7 @@ import { Controller } from '@/presentation/protocols/controller'
 import { HttpRequest, HttpResponse } from '@/presentation/protocols/http-request'
 import { LogControllerDecorator } from './log-controller-decorator'
 
-interface SutTypes {
+type SutTypes = {
     sut: LogControllerDecorator
     controllerStub: Controller
     logErrorRepositoryStub: LogErrorRepository

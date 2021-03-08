@@ -9,7 +9,7 @@ import { HttpRequest, HttpResponse } from '../../../protocols/http-request'
 import { SignUpController } from './signup-controller'
 import { Authentication, AuthenticationModel } from '@/domain/usecases/authentication'
 
-interface SutTypes {
+type SutTypes = {
     sut: SignUpController
     addAccountStub: AddAccount
     validationStub: Validation

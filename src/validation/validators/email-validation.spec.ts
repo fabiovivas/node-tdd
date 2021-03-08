@@ -3,7 +3,7 @@ import { EmailValidator } from '../protocols/email-validator'
 import { EmailValidation } from './email-validation'
 import { ServerError } from '@/presentation/error/server-error'
 
-interface SutTypes {
+type SutTypes = {
     sut: EmailValidation
     emailValidatorStub: EmailValidator
 }
