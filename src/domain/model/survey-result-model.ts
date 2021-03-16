@@ -1,4 +1,4 @@
-export type SurveyModel = {
+export type SurveyResultModel = {
     id: string
     surveyId: string
     accountId: string
