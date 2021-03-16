@@ -60,7 +60,7 @@ describe('LoadSurveys UseCase', () => {
         expect(surveys).toEqual(makeFakeSurverys())
     })
 
-    test('Should calls LoadSurveysRepository', async () => {
+    test('Should throws if LoadSurveysRepository throws', async () => {
         const { sut, loadSurveysRepositoryStub } = makeSut()
         jest.spyOn(loadSurveysRepositoryStub, 'loadAll').mockRejectedValue(new Error())
         const promise = sut.loadAll()
