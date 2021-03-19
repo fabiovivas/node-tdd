@@ -8,6 +8,9 @@ import { SaveSurveyResultController } from './save-survey-result-controller'
 const makeFakeRequest = (): HttpRequest => ({
     params: {
         surveyId: 'any_id'
+    },
+    body: {
+        answer: 'any_answer'
     }
 })
 
@@ -67,5 +70,18 @@ describe('SaveSurveyResult Controller', () => {
         const request = makeFakeRequest()
         const response = await sut.handle(request)
         expect(response).toEqual(serverError(new Error()))
+    })
+
+    test('Should return 403 if invalid answer is provided', async () => {
+        const { sut } = makeSut()
+        const response = await sut.handle({
+            params: {
+                surveyId: 'any_id'
+            },
+            body: {
+                answer: 'wrong_answer'
+            }
+        })
+        expect(response).toEqual(forbidden(new InvalidParamError('answer')))
     })
 })
