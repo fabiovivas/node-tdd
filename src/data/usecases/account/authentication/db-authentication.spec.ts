@@ -4,7 +4,7 @@ import { Encrypter } from '../../../protocols/cryptography/encrypter'
 import { DbAuthentication } from './db-authentication'
 import { LoadAccountByEmailRepository } from '../../../protocols/db/account/load-account-email-by-repository'
 import { UpdateAccessTokenRepository } from '../../../protocols/db/account/update-access-token-repository'
-import { AuthenticationModel } from '@/domain/usecases/account/authentication'
+import { AuthenticationParams } from '@/domain/usecases/account/authentication'
 
 const makeFakeAccount = (): AccountModel => ({
     id: 'any_id',
@@ -13,7 +13,7 @@ const makeFakeAccount = (): AccountModel => ({
     password: 'hashed_password'
 })
 
-const makeFakeAuthentication = (): AuthenticationModel => ({ email: 'any_email', password: 'any_password' })
+const makeFakeAuthentication = (): AuthenticationParams => ({ email: 'any_email', password: 'any_password' })
 
 const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
     class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {

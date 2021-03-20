@@ -2,7 +2,7 @@ import { HashComparer } from '../../../protocols/cryptography/hash-comparer'
 import { Encrypter } from '../../../protocols/cryptography/encrypter'
 import { LoadAccountByEmailRepository } from '../../../protocols/db/account/load-account-email-by-repository'
 import { UpdateAccessTokenRepository } from '../../../protocols/db/account/update-access-token-repository'
-import { Authentication, AuthenticationModel } from '@/domain/usecases/account/authentication'
+import { Authentication, AuthenticationParams } from '@/domain/usecases/account/authentication'
 
 export class DbAuthentication implements Authentication {
     constructor(
@@ -12,7 +12,7 @@ export class DbAuthentication implements Authentication {
         private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
     ) { }
 
-    async auth(authentication: AuthenticationModel): Promise<string> {
+    async auth(authentication: AuthenticationParams): Promise<string> {
         let accessToken = null
         let validatePassword = false
 

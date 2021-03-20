@@ -5,7 +5,7 @@ import { forbidden, ok, serverError } from '@/presentation/helpers/http/http-hel
 import { HttpRequest } from '@/presentation/protocols/http-request'
 import { SaveSurveyResultController } from './save-survey-result-controller'
 import MockDate from 'mockdate'
-import { SaveSurveyResult, SaveSurveyResultModel } from '@/domain/usecases/survey-result/save-survey-result'
+import { SaveSurveyResult, SaveSurveyResultParams } from '@/domain/usecases/survey-result/save-survey-result'
 import { SurveyResultModel } from '@/domain/model/survey-result-model'
 
 const makeFakeRequest = (): HttpRequest => ({
@@ -38,7 +38,7 @@ const makeSurveyResultModel = (): SurveyResultModel => ({
 
 const makeSaveSurveyResult = (): SaveSurveyResult => {
     class SaveSurveyResultStub implements SaveSurveyResult {
-        async save(data: SaveSurveyResultModel): Promise<SurveyResultModel> {
+        async save(data: SaveSurveyResultParams): Promise<SurveyResultModel> {
             return makeSurveyResultModel()
         }
     }
