@@ -3,23 +3,14 @@ import { MongoHelper } from '../helpers/mongo-helper'
 import { SurveyResultMongoRepository } from './survey-result-mongo-repository'
 import MockDate from 'mockdate'
 import { SurveyModel } from '@/domain/model/survey-model'
+import { mockSurveyModel } from '@/domain/test'
 
 let surveyCollection: Collection
 let surveyResultCollection: Collection
 let accountCollection: Collection
 
-const makeSurvey = async (): Promise<SurveyModel> => {
-    const res = await surveyCollection.insertOne({
-        question: 'any_question',
-        answers: [{
-            image: 'any_image',
-            answer: 'any_answer'
-        }, {
-            image: 'other_image',
-            answer: 'other_answer'
-        }],
-        date: new Date()
-    })
+const mockSurvey = async (): Promise<SurveyModel> => {
+    const res = await surveyCollection.insertOne(mockSurveyModel())
     return MongoHelper.map(res.ops[0])
 }
 
@@ -61,7 +52,7 @@ describe('Survey Mongo Repository', () => {
     describe('save', () => {
         test('Should add a survey result if its new', async () => {
             const sut = makeSut()
-            const survey = await makeSurvey()
+            const survey = await mockSurvey()
             const accountId = await makeAccountId()
             const surveyResult = await sut.save({
                 surveyId: survey.id,
@@ -74,7 +65,7 @@ describe('Survey Mongo Repository', () => {
         })
 
         test('Should update a survey result if its not new', async () => {
-            const survey = await makeSurvey()
+            const survey = await mockSurvey()
             const accountId = await makeAccountId()
             const res = await surveyResultCollection.insertOne({
                 surveyId: new ObjectId(survey.id),
