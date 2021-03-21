@@ -10,6 +10,7 @@ import { surveysSchema } from './schemas/surveys.schema'
 import { surveyAnswerSchema } from './schemas/survey-answer.schema'
 import { apiKeyAuthSchema } from './schemas/api-key-auth.schema'
 import { signUpParamsSchema } from './schemas/signup-params.schema'
+import { addSurveyParamsSchema } from './schemas/add-survey.schema'
 
 export default {
     openapi: '3.0.0',
@@ -42,7 +43,8 @@ export default {
         error: errorSchema,
         surveys: surveysSchema,
         survey: surveySchema,
-        surveyAnswer: surveyAnswerSchema
+        surveyAnswer: surveyAnswerSchema,
+        addSurveyParams: addSurveyParamsSchema
     },
     components: {
         securitySchemes: {
