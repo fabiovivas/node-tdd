@@ -1,8 +1,13 @@
 import { loginPath } from './paths/login-path'
-import { badRequest, unauthorized, serverError } from './components/index'
+import { surveyPath } from './paths/survey-path'
+import { badRequest, unauthorized, serverError, forbidden } from './components/index'
 import { accountSchema } from './schemas/account.schema'
 import { errorSchema } from './schemas/error.schema'
 import { loginParamsSchema } from './schemas/login-params.schema'
+import { surveySchema } from './schemas/survey.schema'
+import { surveysSchema } from './schemas/surveys.schema'
+import { surveyAnswerSchema } from './schemas/survey-answer.schema'
+import { apiKeyAuthSchema } from './schemas/api-key-auth.schema'
 
 export default {
     openapi: '3.0.0',
@@ -20,16 +25,28 @@ export default {
     }],
     tags: [{
         name: 'Login'
+    }, {
+        name: 'Enquete'
     }],
     paths: {
-        '/login': loginPath
+        '/login': loginPath,
+        '/surveys': surveyPath
     },
     schemas: {
         account: accountSchema,
         loginParams: loginParamsSchema,
-        error: errorSchema
+        error: errorSchema,
+        surveys: surveysSchema,
+        survey: surveySchema,
+        surveyAnswer: surveyAnswerSchema
     },
     components: {
-        badRequest, unauthorized, serverError
+        securitySchemes: {
+            apiKeyAuth: apiKeyAuthSchema
+        },
+        badRequest,
+        unauthorized,
+        serverError,
+        forbidden
     }
 }
